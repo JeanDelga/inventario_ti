@@ -93,7 +93,7 @@ class DeviceResource extends Resource
                             }),
 
                         Forms\Components\Select::make('department_id')
-                            ->label('Departamento')
+                            ->label('Setor')
                             ->relationship('department', 'name')
                             ->disabled()
                             ->dehydrated(),
@@ -114,11 +114,11 @@ class DeviceResource extends Resource
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('assignedUser.name')
-                    ->label('Usuário Designado')
+                    ->label('Usuário')
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('department.name')
-                    ->label('Departamento')
+                    ->label('Setor')
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('status')
@@ -130,6 +130,23 @@ class DeviceResource extends Resource
                     ->label('Data da Compra')
                     ->date('d/m/Y')
                     ->sortable(),
+                Tables\Columns\TextColumn::make('warranty_expiration')
+                    ->label('Venc. da Garantia')
+                    ->date('d/m/Y')
+                    ->sortable()
+                    ->color(function ($record) {
+                        $diasRestantes = \Carbon\Carbon::now()->diffInDays($record->warranty_expiration, false);
+                    
+                        if ($diasRestantes <= 30) {
+                            return 'danger'; 
+                        } elseif ($diasRestantes <= 60) {
+                            return 'warning';  
+                        } else {
+                            return 'default'; 
+                        }
+                    })
+                              
+        
             ])
 
             ->actions([
@@ -139,7 +156,35 @@ class DeviceResource extends Resource
                     ->extraModalFooterActions([
                         Tables\Actions\DeleteAction::make(),
                     ]),
+            
+                Tables\Actions\Action::make('gerar_qr')
+                    ->label('Etiq')
+                    ->icon('heroicon-o-view-columns')
+                    ->modalHeading('Etiqueta do Equipamento')
+                    ->modalSubmitAction(false)
+                    ->modalCancelActionLabel('Fechar')
+                    ->modalContent(function ($record) {
+                        $info = <<<EOT
+            EQUIPAMENTO: {$record->code}
+            TIPO: {$record->device_type}
+            LOCAL: {$record->department?->name}
+            USUÁRIO: {$record->assignedUser?->name}
+            AQUISIÇÃO: {$record->purchase_date}
+            IP: {$record->ip_address}
+            EOT;
+            
+                        $qrcode = \SimpleSoftwareIO\QrCode\Facades\QrCode::size(120)->generate($info);
+            
+                        return new \Illuminate\Support\HtmlString(
+                            view('partials.etiqueta_qr', [
+                                'device' => $record,
+                                'qrcode' => $qrcode
+                            ])->render()
+                        );
+                    }),
             ])
+            
+            
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
@@ -152,6 +197,7 @@ class DeviceResource extends Resource
         return [];
     }
 
+    
     public static function getPages(): array
     {
         return [

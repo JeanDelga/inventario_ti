@@ -5,6 +5,7 @@ namespace App\Constants;
 class DeviceConstants
 {
     public const DEVICE_TYPES = [
+        'Servidor' => 'Servidor',
         'Notebook' => 'Notebook',
         'Desktop' => 'Desktop',
         'Celular' => 'Celular',
@@ -29,6 +30,7 @@ class DeviceConstants
     ];
 
     public const OPERATING_SYSTEMS = [
+        'Windows XP' => 'Windows XP',
         'Windows 7' => 'Windows 7',
         'Windows 8' => 'Windows 8',
         'Windows 10' => 'Windows 10',
@@ -37,5 +39,6 @@ class DeviceConstants
         'macOS' => 'macOS',
         'Android' => 'Android',
         'iOS' => 'iOS',
+        'Outro' => 'Outro',
     ];
 }

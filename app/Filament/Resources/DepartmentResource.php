@@ -21,8 +21,8 @@ class DepartmentResource extends Resource
 
     protected static ?string $model = Department::class;
     
-    protected static ?string $label = 'Departamento';
-    protected static ?string $pluralLabel = 'Departamentos';
+    protected static ?string $label = 'Setor';
+    protected static ?string $pluralLabel = 'Setor';
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -41,6 +41,7 @@ class DepartmentResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Setor')
                     ->searchable(),
             
                 Tables\Columns\TextColumn::make('created_at')
@@ -56,7 +57,7 @@ class DepartmentResource extends Resource
                     
                     ->actions([
                         Tables\Actions\EditAction::make()
-                            ->modalHeading('Editar Departamento')
+                            ->modalHeading('Editar Setor')
                             ->modalWidth('5xl')
                             ->extraModalFooterActions([
                                 Tables\Actions\DeleteAction::make(),
