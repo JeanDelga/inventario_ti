@@ -10,7 +10,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use App\Constants\DeviceConstants;
-
+use Filament\Tables\Actions\Action;
 
 class DeviceResource extends Resource
 {
@@ -145,8 +145,6 @@ class DeviceResource extends Resource
                             return 'default'; 
                         }
                     })
-                              
-        
             ])
 
             ->actions([
@@ -157,33 +155,13 @@ class DeviceResource extends Resource
                         Tables\Actions\DeleteAction::make(),
                     ]),
             
-                Tables\Actions\Action::make('gerar_qr')
+                
+                Tables\Actions\Action::make('gerar_etiqueta_pdf')
                     ->label('Etiq')
-                    ->icon('heroicon-o-view-columns')
-                    ->modalHeading('Etiqueta do Equipamento')
-                    ->modalSubmitAction(false)
-                    ->modalCancelActionLabel('Fechar')
-                    ->modalContent(function ($record) {
-                        $info = <<<EOT
-            EQUIPAMENTO: {$record->code}
-            TIPO: {$record->device_type}
-            LOCAL: {$record->department?->name}
-            USUÁRIO: {$record->assignedUser?->name}
-            AQUISIÇÃO: {$record->purchase_date}
-            IP: {$record->ip_address}
-            EOT;
-            
-                        $qrcode = \SimpleSoftwareIO\QrCode\Facades\QrCode::size(120)->generate($info);
-            
-                        return new \Illuminate\Support\HtmlString(
-                            view('partials.etiqueta_qr', [
-                                'device' => $record,
-                                'qrcode' => $qrcode
-                            ])->render()
-                        );
-                    }),
+                    ->icon('heroicon-o-printer')
+                    ->url(fn (Device $record) => route('devices.etiqueta.pdf', $record))
+                    ->openUrlInNewTab(),
             ])
-            
             
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -197,7 +175,6 @@ class DeviceResource extends Resource
         return [];
     }
 
-    
     public static function getPages(): array
     {
         return [
