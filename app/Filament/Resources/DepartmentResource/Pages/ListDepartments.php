@@ -14,8 +14,8 @@ class ListDepartments extends ListRecords
     {
         return [
             Actions\CreateAction::make()
-                    ->label('Novo Departamento')
-                    ->modalHeading('Cadastrar Departamento')
+                    ->label('Novo Setor')
+                    ->modalHeading('Cadastrar Setor')
                     ->modalWidth('2xl')
                     ->createAnother(),
         ];

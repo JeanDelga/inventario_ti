@@ -10,17 +10,16 @@ Route::get('/', function () {
 });
 
 Route::get('/devices/{device}/etiqueta-pdf', function (Device $device) {
-    $info = "
-        EQUIPAMENTO: {$device->code}
-        TIPO: {$device->device_type}
-        LOCAL: {$device->department?->name}
-        USUÁRIO: {$device->assignedUser?->name}
-        IP: {$device->ip_address}
-    ";
-
-    $qrcodeSvg = QrCode::format('png')->size(120)->generate($info);
-    $qrcode = 'data:image/png;base64,' . base64_encode($qrcodeSvg);
+    $url = "http://100.65.3.16:8000/equipamento/{$device->code}";
+    $qrcodeSvg = QrCode::format('svg')->size(120)->generate($url);
+    $qrcode = 'data:image/svg+xml;base64,' . base64_encode($qrcodeSvg);
 
     $pdf = Pdf::loadView('pdfs.etiqueta', compact('device', 'qrcode'));
     return $pdf->stream("etiqueta_{$device->code}.pdf");
 })->name('devices.etiqueta.pdf');
+
+
+Route::get('/equipamento/{code}', function (string $code) {
+    $device = Device::where('code', $code)->firstOrFail();
+    return view('equipamento', compact('device'));
+})->name('equipamento.publico');

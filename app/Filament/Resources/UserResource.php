@@ -37,18 +37,23 @@ class UserResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->label('Nome')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('user_name')
+                    ->label('Nome de Usuário')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('email')
+                    ->label('E-mail')
                     ->email()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('password')
+                    ->label('Senha')
                     ->password()
                     ->maxLength(255),
                 Forms\Components\Select::make('department_id')
+                    ->label('Setor')
                     ->relationship('department', 'name'),
                 
             ]);
@@ -57,6 +62,7 @@ class UserResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->defaultSort('id', 'desc')
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->label('Nome')
@@ -68,7 +74,7 @@ class UserResource extends Resource
                     ->label('E-mail')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('department.name')
-                    ->label('Departamento')
+                    ->label('Setor')
                     ->numeric()
                     ->sortable(),
             

@@ -5,39 +5,72 @@
     <title>Etiqueta - {{ $device->code }}</title>
     <style>
         @page {
-            margin: 10mm;
+            margin: 0;
         }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+        }
+
         body {
-            font-family: sans-serif;
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
         }
+
+
         .etiqueta {
-            border: 1px solid #000;
-            width: 90mm;
-            height: 40mm;
-            padding: 5mm;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-sizing: border-box;
-        }
-        .logo {
             width: 30mm;
+            height: 45mm;
+            border: 1px solid #000;
+            padding: 4mm;
+            margin: 20mm auto;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            align-items: center;
+            text-align: center;
         }
+
+        .logo-container,
+        .qr-container,
+        .codigo-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .logo {
+            width: 100px;
+        }
+
+        .qrcode {
+            width: 100px;
+            height: 100px;
+        }
+
         .codigo {
-            writing-mode: vertical-rl;
-            transform: rotate(0deg);
+            font-size: 16px;
             font-weight: bold;
-            font-size: 12pt;
         }
     </style>
 </head>
 <body>
     <div class="etiqueta">
-        <img src="{{ public_path('images/logo_brval.png') }}" alt="Logo" class="logo">
-        <img src="{{ $qrcode }}" alt="QR Code" style="width: 80px;">
-        <div class="codigo">{{ $device->code }}</div>
+        <div class="logo-container">
+            <img src="{{ public_path('images/logo_brval.png') }}" class="logo" alt="Logo">
+        </div>
+        <div class="qr-container">
+            <img src="{{ $qrcode }}" class="qrcode" alt="QR Code">
+        </div>
+        <div class="codigo-container">
+            <div class="codigo">{{ $device->code }}</div>
+        </div>
     </div>
 </body>
 </html>
