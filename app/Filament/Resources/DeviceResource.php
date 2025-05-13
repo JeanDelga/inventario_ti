@@ -35,6 +35,9 @@ class DeviceResource extends Resource
                             ->label('Tipo de Equipamento')
                             ->options(DeviceConstants::DEVICE_TYPES)
                             ->required(),
+                        Forms\Components\TextInput::make('service_tag')
+                            ->label('Service Tag')
+                            ->maxLength(255),
                         Forms\Components\TextInput::make('manufacturer')
                             ->label('Fabricante')
                             ->maxLength(255),
@@ -65,6 +68,12 @@ class DeviceResource extends Resource
                         Forms\Components\TextInput::make('mac_address')
                             ->label('Endereço MAC')
                             ->maxLength(255),
+                        Forms\Components\TextInput::make('ethernet_mac_address')
+                            ->label('Endereço MAC Ethernet')
+                            ->maxLength(255),
+                        Forms\Components\Select::make('company')
+                            ->label('Empresa')
+                            ->options(DeviceConstants::COMPANYS),
                         Forms\Components\DatePicker::make('purchase_date')
                             ->label('Data de Compra')
                             ->date('d/m/Y') 

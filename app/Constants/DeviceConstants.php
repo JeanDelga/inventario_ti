@@ -35,10 +35,30 @@ class DeviceConstants
         'Windows 8' => 'Windows 8',
         'Windows 10' => 'Windows 10',
         'Windows 11' => 'Windows 11',
-        'Linux' => 'Linux',
+        'Windows Server 2008' => 'Windows Server 2008',
+        'Windows Server 2012' => 'Windows Server 2012',
+        'Windows Server 2016' => 'Windows Server 2016',
+        'Windows Server 2019' => 'Windows Server 2019',
+        'Windows Server 2022' => 'Windows Server 2022',
+        'Ubuntu' => 'Ubuntu',
+        'Debian' => 'Debian',
+        'Fedora' => 'Fedora',
         'macOS' => 'macOS',
         'Android' => 'Android',
         'iOS' => 'iOS',
         'Outro' => 'Outro',
+    ];
+
+    public const COMPANYS = [
+        'BRVAL Electrical' => 'BRVAL Electrical',
+        'BRVAL Transformadores' => 'BRVAL Transformadores',
+        'BRVAL Service' => 'BRVAL Service',
+        'BRVAL SRB' => 'BRVAL SRB',
+        'BRVAL Cooling' => 'BRVAL Cooling',
+        'BRVAL Automação' => 'BRVAL Automação',
+        'Efficient' => 'Efficient',
+        'M4R' => 'M4R',
+        'Pousada Arara' => 'Pousada Arara',
+
     ];
 }

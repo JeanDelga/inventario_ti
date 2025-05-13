@@ -9,3 +9,17 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+@layer components {
+    .fi-sidebar {
+        @apply bg-gray-900 text-white; /* <- aqui você muda a cor da sidebar */
+    }
+
+    .fi-sidebar .fi-sidebar-item {
+        @apply text-white hover:bg-gray-800;
+    }
+
+    .fi-sidebar .fi-sidebar-item-active {
+        @apply bg-gray-800 font-bold;
+    }
+}
