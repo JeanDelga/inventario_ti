@@ -30,11 +30,15 @@ class DeviceConstants
     ];
 
     public const OPERATING_SYSTEMS = [
-        'Windows XP' => 'Windows XP',
-        'Windows 7' => 'Windows 7',
-        'Windows 8' => 'Windows 8',
-        'Windows 10' => 'Windows 10',
-        'Windows 11' => 'Windows 11',
+        'Windows XP' => 'Windows XP HOME',
+        'Windows 7' => 'Windows 7 HOME',
+        'Windows 8' => 'Windows 8 HOME',
+        'Windows 10' => 'Windows 10 HOME',
+        'Windows 11' => 'Windows 11 HOME',
+        'Windows 7' => 'Windows 7 PRO',
+        'Windows 8' => 'Windows 8 PRO',
+        'Windows 10' => 'Windows 10 PRO',
+        'Windows 11' => 'Windows 11 PRO',
         'Windows Server 2008' => 'Windows Server 2008',
         'Windows Server 2012' => 'Windows Server 2012',
         'Windows Server 2016' => 'Windows Server 2016',
