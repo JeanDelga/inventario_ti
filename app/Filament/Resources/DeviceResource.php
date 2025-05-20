@@ -20,6 +20,7 @@ class DeviceResource extends Resource
     protected static ?string $pluralLabel = 'Equipamentos';
 
     protected static ?string $navigationIcon = 'heroicon-o-device-phone-mobile';
+    protected static ?string $navigationGroup = 'Controle';
 
     public static function form(Form $form): Form
     {
