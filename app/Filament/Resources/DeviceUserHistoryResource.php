@@ -12,6 +12,11 @@ use Illuminate\Database\Eloquent\Builder;
 
 class DeviceUserHistoryResource extends Resource
 {
+    public static function shouldRegisterNavigation(): bool
+    {
+        return false;
+    }
+
     protected static ?string $model = DeviceUserHistory::class;
 
     protected static ?string $label = 'Histórico Dispositivo X Usuário';

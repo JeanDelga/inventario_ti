@@ -2,13 +2,21 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\Device;
+use App\Models\Department;
 use Illuminate\Support\Carbon;
+use App\Models\DeviceUserHistory;
+use App\Constants\DeviceConstants;
+use Spatie\Activitylog\LogOptions;
+use Illuminate\Foundation\Auth\User;
+use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Device extends Model
 {
     use HasFactory;
+    use LogsActivity;
 
     protected $table = 'devices';
     protected $guarded = ['id'];
@@ -68,13 +76,33 @@ class Device extends Model
         $purchaseDate = $device->purchase_date
             ? \Carbon\Carbon::parse($device->purchase_date)->format('y')
             : now()->format('y');
+        
+        $companycode = \App\Constants\DeviceConstants::COMPANY_CODES[$device->company] ?? 'XX';
 
         do {
-            $random = str_pad(rand(1, 9999), 2, '0', STR_PAD_LEFT);
-            $code = "{$typeAbbreviation}-{$random}-{$purchaseDate}";
+            $random = str_pad(rand(1, 999), 2, '0', STR_PAD_LEFT);
+            $code = "{$companycode}-{$typeAbbreviation}{$random}-{$purchaseDate}";
         } while (Device::where('code', $code)->exists());
 
     return $code;
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+        ->logOnly([
+            'name',
+            'code',
+            'device_type',
+            'brand',
+            'model',
+            'serial_number',
+            'assigned_user_id',
+            'department_id',
+            'purchase_date',
+            'warranty_expiration_date',
+        ]);
+        // Chain fluent methods for configuration options
     }
 
 }

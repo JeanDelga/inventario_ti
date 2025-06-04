@@ -2,16 +2,20 @@
 
 namespace App\Models;
 
+use App\Models\Device;
+use App\Models\Department;
+use Spatie\Activitylog\LogOptions;
+use Illuminate\Notifications\Notifiable;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
-
+    use LogsActivity;
     /**
      * The attributes that are mass assignable.
      *
@@ -65,5 +69,11 @@ class User extends Authenticatable
     public function devices(): HasMany
     {
         return $this->hasMany(Device::class, 'assigned_user_id');
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+        ->logOnly(['name', 'email', 'user_name', 'department_id']);
     }
 }

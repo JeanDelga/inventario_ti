@@ -10,7 +10,7 @@ class Dashboard extends BaseDashboard
 {
     public function getViewData(): array
     {
-        // 🔔 Notificação se houver garantia vencendo nos próximos 30 dias
+        // Notificação se houver garantia vencendo nos próximos 30 dias
         $expiringSoonCount = Device::whereDate('warranty_expiration', '>=', now())
             ->whereDate('warranty_expiration', '<=', now()->addDays(60))
             ->count();

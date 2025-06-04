@@ -50,11 +50,11 @@
             }
 
             h2 {
-                font-size: 20px;
+                font-size: 22px;
             }
 
             p {
-                font-size: 15px;
+                font-size: 17px;
             }
         }
     </style>
@@ -69,6 +69,7 @@
         <p><strong>Usuário:</strong> {{ $device->assignedUser?->name }}</p>
         <p><strong>Setor:</strong> {{ $device->department?->name }}</p>
         <p><strong>IP:</strong> {{ $device->ip_address }}</p>
+        <p><strong>Empresa:</strong> {{ $device->company }}</p>
         <p><strong>Aquisição:</strong> {{ \Carbon\Carbon::parse($device->purchase_date)->format('d/m/Y') }}</p>
     </div>
 </body>

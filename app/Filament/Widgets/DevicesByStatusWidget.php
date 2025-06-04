@@ -26,6 +26,7 @@ class DevicesByStatusWidget extends BaseWidget
         Stat::make('Celulares', Device::where('device_type', 'Celular')->count())
             ->color('gray'),
 
+
     ];
 }
 

@@ -24,7 +24,7 @@
 
         .etiqueta {
             width: 30mm;
-            height: 45mm;
+            height: 43mm;
             border: 1px solid #000;
             padding: 4mm;
             margin: 20mm auto;
@@ -55,7 +55,7 @@
         }
 
         .codigo {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: bold;
         }
     </style>

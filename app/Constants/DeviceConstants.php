@@ -65,4 +65,16 @@ class DeviceConstants
         'Pousada Arara' => 'Pousada Arara',
 
     ];
+
+    public const COMPANY_CODES = [
+        'BRVAL Electrical' => 'BR',
+        'BRVAL Transformadores' => 'BT',
+        'BRVAL Service' => 'BS',
+        'BRVAL SRB' => 'SR',
+        'BRVAL Cooling' => 'BC',
+        'BRVAL Automação' => 'BA',
+        'Efficient' => 'EF',
+        'M4R' => 'M4',
+        'Pousada Arara' => 'AR',
+    ];
 }

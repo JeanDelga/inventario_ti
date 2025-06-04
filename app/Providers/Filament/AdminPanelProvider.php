@@ -6,10 +6,12 @@ use Filament\Pages;
 use Filament\Panel;
 use Filament\Widgets;
 use Filament\PanelProvider;
+use App\Filament\Pages\AuthLogin;
 use Filament\Support\Colors\Color;
 use App\Filament\Widgets\LastDevices;
 use Filament\Navigation\NavigationGroup;
 use Filament\Http\Middleware\Authenticate;
+use Rmsramos\Activitylog\ActivitylogPlugin;
 use App\Filament\Widgets\DevicesStatusChart;
 use App\Filament\Widgets\ExpiringWarranties;
 use App\Filament\Widgets\CustomAccountWidget;
@@ -20,6 +22,7 @@ use Filament\Http\Middleware\AuthenticateSession;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
@@ -75,6 +78,12 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
+            ])
+            ->plugins([
+                ActivitylogPlugin::make()
+                    ->label('Logs')
+                    ->navigationGroup('Consultas'),
+
             ]);
     }
 }

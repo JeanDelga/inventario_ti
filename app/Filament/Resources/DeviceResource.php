@@ -74,14 +74,17 @@ class DeviceResource extends Resource
                             ->maxLength(255),
                         Forms\Components\Select::make('company')
                             ->label('Empresa')
+                            ->required()
                             ->options(DeviceConstants::COMPANYS),
                         Forms\Components\DatePicker::make('purchase_date')
                             ->label('Data de Compra')
-                            ->date('d/m/Y') 
+                            ->displayFormat('d/m/Y')
+                            ->native(false)
                             ->required(),
                         Forms\Components\DatePicker::make('warranty_expiration')
                             ->label('Vencimento da Garantia')
-                            ->date('d/m/Y'), 
+                            ->displayFormat('d/m/Y')
+                            ->native(false),
                         Forms\Components\Select::make('status')
                             ->label('Status')
                             ->options(DeviceConstants::STATUS),
