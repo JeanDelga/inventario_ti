@@ -18,36 +18,40 @@ class RelatorioEquipamentos extends Page implements HasForms
 
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
     protected static ?string $title = 'Relatório de Equipamentos';
-    protected static ?string $navigationGroup = 'Relatórios';
+    
+    protected static ?string $navigationGroup = 'Consultas';
 
     protected static string $view = 'filament.pages.relatorio-equipamentos';
 
     protected function getFormSchema(): array
-    {
-        return [
-            Forms\Components\Select::make('empresa')
-                ->label('Empresa')
-                ->options(\App\Constants\DeviceConstants::COMPANYS)
-                ->searchable()
-                ->reactive(),
+{
+    return [
+        Forms\Components\Grid::make(4)
+            ->schema([
+                Forms\Components\Select::make('empresa')
+                    ->label('Empresa')
+                    ->options(\App\Constants\DeviceConstants::COMPANYS)
+                    ->searchable()
+                    ->reactive(),
 
-            Forms\Components\Select::make('tipo')
-                ->label('Tipo de Equipamento')
-                ->options(\App\Constants\DeviceConstants::DEVICE_TYPES)
-                ->searchable()
-                ->reactive(),
+                Forms\Components\Select::make('tipo')
+                    ->label('Tipo de Equipamento')
+                    ->options(\App\Constants\DeviceConstants::DEVICE_TYPES)
+                    ->searchable()
+                    ->reactive(),
 
-            Forms\Components\DatePicker::make('inicio')
-                ->label('Data Inicial')
-                ->native(false)
-                ->reactive(),
+                Forms\Components\DatePicker::make('inicio')
+                    ->label('Data Inicial')
+                    ->native(false)
+                    ->reactive(),
 
-            Forms\Components\DatePicker::make('fim')
-                ->label('Data Final')
-                ->native(false)
-                ->reactive(),
-        ];
-    }
+                Forms\Components\DatePicker::make('fim')
+                    ->label('Data Final')
+                    ->native(false)
+                    ->reactive(),
+            ]),
+    ];
+}
 
     public function getIframeUrl(): string
     {

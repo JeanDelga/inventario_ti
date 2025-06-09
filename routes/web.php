@@ -6,8 +6,8 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return redirect('/admin');
+})->name('home');     
 
 Route::get('/devices/{device}/etiqueta-pdf', function (Device $device) {
     $url = "http://100.65.1.158:8000/equipamento/{$device->code}";
