@@ -66,12 +66,15 @@ class UserResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->label('Nome')
+                    ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('user_name')
                     ->label('Nome de Usuário')
+                    ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
                     ->label('E-mail')
+                    ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('department.name')
                     ->label('Setor')
@@ -88,9 +91,7 @@ class UserResource extends Resource
                         Tables\Actions\DeleteAction::make(),
                     ]),
             ])
-            
-            
-            
+                                    
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),

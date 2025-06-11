@@ -1,20 +1,29 @@
-FROM thecodingmachine/php:8.2-v4-apache-node18
+FROM thecodingmachine/php:8.3-v4-apache-node18
 
 USER root
+
+# Locale pt_BR e dependências
 RUN apt-get update \
-    && apt-get install -y locales \
+    && apt-get install -y locales libpng-dev libjpeg-dev libfreetype6-dev libicu-dev \
     && locale-gen pt_BR.UTF-8 \
     && update-locale LANG=pt_BR.UTF-8
 
-USER docker
+ENV LANG=pt_BR.UTF-8
 
-# Setar variável de ambiente para pt_BR.UTF-8
-ENV LANG pt_BR.UTF-8
+# Ativa as extensões PHP necessárias (modo correto nesta imagem)
+ENV PHP_EXTENSIONS="intl gd"
 
-#COPY src/ /var/www/html/
+# Ajustar o DocumentRoot para /public
+ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
+RUN sed -ri -e 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/*.conf \
+    && sed -ri -e 's!/var/www/html!/var/www/html/public!g' /etc/apache2/apache2.conf \
+    && sed -ri -e 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-enabled/*.conf
 
-ENV PHP_EXTENSIONS="gd"
+WORKDIR /var/www/html
 
-# COPY ./php.ini /usr/local/etc/php/conf.d/custom.ini
+COPY src/ /var/www/html
 
-ENV APACHE_DOCUMENT_ROOT=public/
+RUN composer install --no-interaction --prefer-dist --optimize-autoloader \
+    && php artisan config:cache \
+    && php artisan route:cache \
+    && php artisan view:cache
