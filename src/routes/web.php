@@ -9,8 +9,19 @@ Route::get('/', function () {
     return redirect('/admin');
 })->name('home');     
 
+// Route::get('/devices/{device}/etiqueta-pdf', function (Device $device) {
+//     $url = "http://100.65.0.38:8000/equipamento/{$device->code}";
+//     $qrcodeSvg = QrCode::format('svg')->size(120)->generate($url);
+//     $qrcode = 'data:image/svg+xml;base64,' . base64_encode($qrcodeSvg);
+
+//     $pdf = Pdf::loadView('pdfs.etiqueta', compact('device', 'qrcode'));
+//     return $pdf->stream("etiqueta_{$device->code}.pdf");
+// })->name('devices.etiqueta.pdf');
+
 Route::get('/devices/{device}/etiqueta-pdf', function (Device $device) {
-    $url = "http://100.65.0.38:8000/equipamento/{$device->code}";
+    $host = request()->getSchemeAndHttpHost();
+    $url = "{$host}/equipamento/{$device->code}";
+
     $qrcodeSvg = QrCode::format('svg')->size(120)->generate($url);
     $qrcode = 'data:image/svg+xml;base64,' . base64_encode($qrcodeSvg);
 
